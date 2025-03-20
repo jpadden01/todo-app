@@ -11,7 +11,6 @@ app.register_blueprint(auth)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db.sqlite"
 app.config["SECRET_KEY"] = "ENTER YOUR SECRET KEY"
 db = SQLAlchemy()
-db.init_app(app)
 
 from .models import User
 
