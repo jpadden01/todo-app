@@ -1,12 +1,9 @@
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 
-def create_app():
-    app = Flask(__name__)
+app = Flask(__name__)
 
-    from .views import views
-    app.register_blueprint(views)
-
-    from .auth import auth
-    app.register_blueprint(auth)
-
-    return app
+from .views import views
+app.register_blueprint(views)
+from .auth import auth
+app.register_blueprint(auth)
