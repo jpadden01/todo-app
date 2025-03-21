@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask_login import login_user
 
 from . import db
 from .models import User
@@ -12,13 +13,13 @@ def login():
         if user.password != request.form.get('password'):
             flash('Incorrect password...')
             return render_template('login.html')
+        login_user(user)
         flash('Logged in succesfully')
         return redirect(url_for('views.home'))
     return render_template('login.html')
 
 @auth.route('/signup', methods=['GET', 'POST'])
 def signup():
-    # TODO: SIGN UP PAGE
     if request.method == 'POST':
         if User.query.filter_by(username=request.form.get('username')).first():
             flash('Username is already in use...')
