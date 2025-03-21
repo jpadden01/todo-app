@@ -5,10 +5,16 @@ from .models import User
 
 auth = Blueprint('auth', __name__)
 
-@auth.route('/login')
+@auth.route('/login', methods=['GET', 'POST'])
 def login():
-    # TODO: LOGIN PAGE
-    return '<p>Log In</p>'
+    if request.method == 'POST':
+        user = User.query.filter_by(username=request.form.get('username')).first()
+        if user.password != request.form.get('password'):
+            flash('Incorrect password...')
+            return render_template('login.html')
+        flash('Logged in succesfully')
+        return redirect(url_for('views.home'))
+    return render_template('login.html')
 
 @auth.route('/signup', methods=['GET', 'POST'])
 def signup():
