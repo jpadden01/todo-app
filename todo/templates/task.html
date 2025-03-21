@@ -1,5 +1,9 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<h1>Create a Task</h1>
+<form method="post">
+    <label for="task">Task</label>
+    <input type="text" name="task">
+    <button type="submit">Create Task</button>
+</form>
 {% endblock %}
