@@ -2,17 +2,22 @@
 
 {% block content %}
 <form method="POST">
-    <label for="username">Username</label>
-    <input type="text" name="username">
+    <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" name="username" class="form-control-md">
+    </div>
 
-    <label for="password">Password</label>
-    <input type="password" name="password">
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" name="password" class="form-control-label">
+    </div>
 
-    <label for="password-confirm">Confirm Password</label>
-    <input type="password" name="password-confirm">
+    <div class="mb-3">
+        <label for="password-confirm" class="form-label">Confirm Password</label>
+        <input type="password" name="password-confirm" class="form-control-md">
+    </div>
 
-    <button type="submit">Create Account</button>
+    <button type="submit" class="btn btn-outline-primary">Create Account</button>
+    <a href="{{ url_for('auth.login') }}" class="btn btn-sm btn-outline-secondary">Have an Account?</a>
 </form>
-
-<a href="{{ url_for('auth.login') }}">Have an Account?</a>
 {% endblock %}
