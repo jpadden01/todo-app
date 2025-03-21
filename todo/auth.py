@@ -1,4 +1,7 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request, redirect, url_for, flash
+
+from . import db
+from .models import User
 
 auth = Blueprint('auth', __name__)
 
@@ -7,9 +10,21 @@ def login():
     # TODO: LOGIN PAGE
     return '<p>Log In</p>'
 
-@auth.route('/signup')
+@auth.route('/signup', methods=['GET', 'POST'])
 def signup():
     # TODO: SIGN UP PAGE
+    if request.method == 'POST':
+        if User.query.filter_by(username=request.form.get('username')).first():
+            flash('Username is already in use...')
+            return render_template('signup.html')
+        if request.form.get('password') != request.form.get('password-confirm'):
+            flash('Passwords must match...')
+            return render_template('signup.html')
+        user = User(username=request.form.get('username'), 
+                    password=request.form.get('password'))
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for('login'))
     return render_template('signup.html')
 
 @auth.route('/logout')
