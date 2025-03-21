@@ -9,5 +9,5 @@ class User(UserMixin, db.Model):
 
 class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    task = db.String(db.String(250), nullable=False)
+    task = db.Column(db.String(250), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
