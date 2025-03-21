@@ -1,14 +1,16 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<ul>
+<div class="card p-3 bg-body-secondary">
+    <h4 class="card-title text-primary">Tasks</h5>
     {% for task in current_user.tasks %}
-        <li>
-            {{ task.task }} 
+        <div class="card bg-warning my-2">
             <form method="post">
-                <button type="submit" name="delete" value="{{ task.id }}"></button>
+                <span><!-- MAKE THUMMB TAC --></span>
+                <button type="submit" name="delete" value="{{ task.id }}" class="btn-close"></button>
+                {{ task.task }}
             </form>
-        </li>
+        </div>
     {% endfor %}
-</ul>
+</div>
 {% endblock %}
