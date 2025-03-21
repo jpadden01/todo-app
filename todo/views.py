@@ -15,7 +15,7 @@ def home():
         task = Task.query.filter_by(id=task_id).first()
         db.session.delete(task)
         db.session.commit()
-        flash('Task deleted')
+        flash('Task deleted', category='success')
     return render_template('home.html')
 
 @views.route('/task', methods=['GET', 'POST'])
@@ -25,6 +25,6 @@ def task():
         task = Task(task=request.form.get('task'), user_id=current_user.id)
         db.session.add(task)
         db.session.commit()
-        flash('Task created')
+        flash('Task created', category='success')
         return redirect(url_for('views.home'))
     return render_template('task.html')

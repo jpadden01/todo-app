@@ -11,10 +11,10 @@ def login():
     if request.method == 'POST':
         user = User.query.filter_by(username=request.form.get('username')).first()
         if user.password != request.form.get('password'):
-            flash('Incorrect password...')
+            flash('Incorrect password', category='danger')
             return render_template('login.html')
         login_user(user)
-        flash('Logged in succesfully')
+        flash('Logged in succesfully', category='success')
         return redirect(url_for('views.home'))
     return render_template('login.html')
 
@@ -22,10 +22,10 @@ def login():
 def signup():
     if request.method == 'POST':
         if User.query.filter_by(username=request.form.get('username')).first():
-            flash('Username is already in use...')
+            flash('Username is already in use', category='danger')
             return render_template('signup.html')
         if request.form.get('password') != request.form.get('password-confirm'):
-            flash('Passwords must match...')
+            flash('Passwords must match', category='danger')
             return render_template('signup.html')
         user = User(username=request.form.get('username'), 
                     password=request.form.get('password'))
