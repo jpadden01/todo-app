@@ -1,4 +1,14 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+<ul>
+    {% for task in current_user.tasks %}
+        <li>
+            {{ task.task }} 
+            <form method="post">
+                <button type="submit" name="delete" value="{{ task.id }}"></button>
+            </form>
+        </li>
+    {% endfor %}
+</ul>
 {% endblock %}
