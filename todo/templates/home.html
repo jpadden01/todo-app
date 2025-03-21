@@ -1,4 +1,9 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+<ul>
+    {% for task in current_user.tasks %}
+        <li>{{ task.task }}</li>
+    {% endfor %}
+</ul>
 {% endblock %}
