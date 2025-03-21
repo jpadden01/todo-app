@@ -11,11 +11,17 @@ def home():
     if not current_user.is_authenticated:
         return redirect(url_for('auth.login'))
     if request.method == 'POST':
-        task_id = request.form.get('delete')
-        task = Task.query.filter_by(id=task_id).first()
-        db.session.delete(task)
-        db.session.commit()
-        flash('Task deleted', category='success')
+        task_id = request.form.get('post-task')
+        if task_id == 'make':
+            task = Task(task=request.form.get('task'), user_id=current_user.id)
+            db.session.add(task)
+            db.session.commit()
+            flash('Task created', category='success')
+        else:
+            task = Task.query.filter_by(id=task_id).first()
+            db.session.delete(task)
+            db.session.commit()
+            flash('Task deleted', category='success')
     return render_template('home.html')
 
 @views.route('/task', methods=['GET', 'POST'])
